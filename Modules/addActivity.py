@@ -7,12 +7,14 @@ from inputfile import input_file
 g = Graph()
 g.parse(input_file)
 
+
+
 def triple(s,p,o): # shortens adding triples
     g.add((s,p,o))
 
 def add_activity(uri,rdftype,persistentIdentity=None,displayId=None,version=None,wasDerivedFrom=None,name=None, \
                 description=None,agents=None, entities = None):
-    g.add ==((URIRef(uri), RDF.type, prov[rdftype]))
+    triple(URIRef(uri), RDF.type, prov[rdftype])
     if persistentIdentity:
         triple(URIRef(uri), sbol_ns.persistentIdentity, URIRef(persistentIdentity))
     if displayId:
@@ -33,9 +35,11 @@ def add_activity(uri,rdftype,persistentIdentity=None,displayId=None,version=None
     if entities:
         for i in entities:
             triple(URIRef(i[0]), prov.wasGeneratedBy, URIRef(uri)) # 0 selects the URI from the URI,input/output) tuple
+        for i in entities:
+            triple(URIRef(uri),prov.used,URIRef(i[0]))
 
 
-def add_qualified_association(activity,uri,hadPlan=None,hadRole=None,agent=None): #had to include activity as it
+def add_qualified_association(activity,uri,agent=None,hadPlan=None,hadRole=None): #had to include activity as it
                                                                         #tell the association who its parent is
     triple(URIRef(activity),prov.qualifiedAssociation,URIRef(uri))
     triple(URIRef(uri),RDF.type,prov.Association)
@@ -66,8 +70,13 @@ activity_dct = {'uri':"http://partsregistry.org/activites/activity1", #URI for C
                 'wasDerivedFrom':None, #URI to SBOL or non-SBOL resource
                 'name':'DNA synthesis', # string displayed to human when vizualising an Identified object
                 'description':'DNA synthesis by DNA2.0',#more thorough text descrption of identified object}
-                'agents':['http://example.com/agents/user001','http://example.com/agents/organisations/DNA2.0'],
-                'entities':[('http://partsregistry.org/cd/BBa_R0040','output'),
+
+                'agents':[('http://example.com/agents/user001','','')   ,   # agent in format (URI,hadPlan,hadRole)
+                          ('http://example.com/agents/organisations/DNA2.0','','')
+                          ]
+                ,
+
+                'entities':[('http://partsregistry.org/cd/BBa_R0040','output'), # entity in format (URI,I/O)
                             ('http://parts.igem.org/Part:BBa_R0040','input')]}
 
 
@@ -77,29 +86,28 @@ qualified_association_dct = {'activity':'http://partsregistry.org/activites/acti
                              'hadRole':'http://www.example.com/DNAsynthesis',
                              'agent':'http://example.com/agents/user001'}
 
+def qualified_association_from_activity(activity):
+    for i in range(len(activity['agents'])):
+        add_qualified_association(activity['uri'],
+                                  activity['uri']+'/association'+str(i+1),
+                                  activity['agents'][i][0],
+                                  activity['agents'][i][1],
+                                  activity['agents'][i][2])
 
 
-qualified_usage_dct_1 = {'activity': 'http://partsregistry.org/activites/activity1',
-                       'uri': 'http://partsregistry.org/cd/BBa_F2620/usage1',
-                       'entity': activity_dct['entities'][0][0],
-                       'hadRole': activity_dct['entities'][0][1]}
-
-
-qualified_usage_dct_2 = {'activity': 'http://partsregistry.org/activites/activity1',
-                       'uri': 'http://partsregistry.org/cd/BBa_F2620/usage2',
-                       'entity': activity_dct['entities'][1][0],
-                       'hadRole': activity_dct['entities'][1][1]}
-
-
+# need to put in addActivity module
+def qualified_usages_from_activity(activity):
+        for i in range(len(activity['entities'])):
+            add_qualified_usage(activity['uri'],
+                            activity['uri']+'/usage'+str(i+1),  # uri needs substituting for base uri
+                            activity['entities'][i][0],
+                            activity['entities'][i][1])
 
 
 add_activity(**activity_dct)
 
-add_qualified_association(**qualified_association_dct)
+qualified_association_from_activity(activity_dct)
 
-add_qualified_usage(**qualified_usage_dct_1)
-
-add_qualified_usage(**qualified_usage_dct_2)
-
+qualified_usages_from_activity(activity_dct)
 
 g.serialize("TestOutput.xml","xml")
