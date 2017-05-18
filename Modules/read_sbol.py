@@ -1,10 +1,17 @@
 from rdflib import URIRef, Namespace, Graph
 from rdflib.namespace import RDF
 from namespaces import *
-from inputfile import input_file
+# from inputfile import input_file
 
-g = Graph()
-g.parse(input_file)
+def parse_xml(input_file):
+    """
+    Parses input file to graph object
+    :param input_file: input file as .xml
+    :return: 
+    """
+    global g
+    g = Graph()
+    g.parse(input_file)
 
 def comp2compdef(component):
     for s, p, o in g.triples((URIRef(component),sbol_ns.definition,None)):
@@ -70,6 +77,7 @@ class SBOL:
     def __init__(self,input_file):
         self.g = Graph()
         self.g.parse(input_file)
+        parse_xml(input_file)
 
     def ComponentDefinitionList(self):
         cd_list = []
@@ -99,8 +107,7 @@ class SBOL:
                  child_list.append(comp2compdef(o))
         return child_list
 
-
-x = SBOL(input_file)
+x = SBOL("BBa_P0440.xml")
 
 print 'Parents:'
 for i in x.ParentList():
