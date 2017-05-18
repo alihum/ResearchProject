@@ -7,13 +7,34 @@ from inputfile import input_file
 g = Graph()
 g.parse(input_file)
 
-
-
-def triple(s,p,o): # shortens adding triples
+# Function shortens adding triples by abbreviating g.add
+def triple(s,p,o):
+    '''
+    Takes three arguments and adds them as an RDF truple
+    :param s: subject of triple
+    :param p: predicate of triple
+    :param o: object of triple
+    :return: 
+    '''
     g.add((s,p,o))
+
 
 def add_activity(uri,rdftype,persistentIdentity=None,displayId=None,version=None,wasDerivedFrom=None,name=None, \
                 description=None,agents=None, entities = None):
+    '''
+    Takes an activity dictionary and adds the appropriate triples to the graph
+    :param uri: Uniform Resource Identifier of the activity (required)
+    :param rdftype: Should be Activity for an activity object (required)
+    :param persistentIdentity: to refer to previous versions
+    :param displayId: displayId in SBOL applications
+    :param version: used to determine the difference between persistentIdentity's
+    :param wasDerivedFrom: what it is derived from
+    :param name: human-readble identifier
+    :param description:  human-readable string to describe object
+    :param agents: list of agents
+    :param entities: list of entities
+    :return: 
+    '''
     triple(URIRef(uri), RDF.type, prov[rdftype])
     if persistentIdentity:
         triple(URIRef(uri), sbol_ns.persistentIdentity, URIRef(persistentIdentity))
@@ -39,54 +60,46 @@ def add_activity(uri,rdftype,persistentIdentity=None,displayId=None,version=None
             triple(URIRef(uri),prov.used,URIRef(i[0]))
 
 
-def add_qualified_association(activity,uri,agent=None,hadPlan=None,hadRole=None): #had to include activity as it
-                                                                        #tell the association who its parent is
+def add_qualified_association(activity, uri, agent, hadRole, hadPlan=None):
+    """
+    :param activity: parent activity of qualifiedAssociation (required)
+    :param uri: Uniform Resource Identifier of association object (required)
+    :param agent: the agent that was associated with the activity (required)
+    :param hadRole: the role that the agent played (required)
+    :param hadPlan: information that was used by the agent to implement the plan (URI)
+    :return: 
+    """
     triple(URIRef(activity),prov.qualifiedAssociation,URIRef(uri))
     triple(URIRef(uri),RDF.type,prov.Association)
+    for i in agent:
+        triple(URIRef(uri),prov.agent,URIRef(agent))
+    for i in hadRole:
+        triple(URIRef(uri), prov.hadRole, URIRef(hadRole))
     if hadPlan:
         for i in hadPlan:
             triple(URIRef(uri),prov.hadPlan,URIRef(hadPlan))
-    if hadRole:
-        for i in hadRole:
-            triple(URIRef(uri),prov.hadRole,URIRef(hadRole))
-    if agent:
-        for i in agent:
-            triple(URIRef(uri),prov.agent,URIRef(agent))
 
 
 def add_qualified_usage(activity, uri, entity, hadRole):
+    """
+    :param activity: takes parent activity to refer to
+    :param uri: uri of the qualified usage
+    :param entity: uri of the entity used by the activity
+    :param hadRole: role of the entity in the activity
+    :return: 
+    """
     triple(URIRef(activity), prov.qualifiedUsage, URIRef(uri))
     triple(URIRef(uri), RDF.type, prov.Usage)
     triple(URIRef(uri), prov.entity, URIRef(entity))
-    triple(URIRef(uri), prov.hadRole, myapp[hadRole])
-    if hadRole == 'output':
-        triple(URIRef(uri),prov.wasGeneratedBy,URIRef(activity))
+    triple(URIRef(uri), prov.hadRole, example[hadRole])
 
-activity_dct = {'uri':"http://partsregistry.org/activites/activity1", #URI for Component Definition (required)
-                'rdftype':'Activity', #RDF type (required)
-                'persistentIdentity':None, #URI(s) to other versions (should use semantic versioning)
-                'displayId':None, #String for the display ID (composed of only alphanumberic or underscore characters must not begin with a digit)
-                'version':None, #string to describe version number (compares two objects with the same persistentIdentity)
-                'wasDerivedFrom':None, #URI to SBOL or non-SBOL resource
-                'name':'DNA synthesis', # string displayed to human when vizualising an Identified object
-                'description':'DNA synthesis by DNA2.0',#more thorough text descrption of identified object}
-
-                'agents':[('http://example.com/agents/user001','','')   ,   # agent in format (URI,hadPlan,hadRole)
-                          ('http://example.com/agents/organisations/DNA2.0','','')
-                          ]
-                ,
-
-                'entities':[('http://partsregistry.org/cd/BBa_R0040','output'), # entity in format (URI,I/O)
-                            ('http://parts.igem.org/Part:BBa_R0040','input')]}
-
-
-qualified_association_dct = {'activity':'http://partsregistry.org/activites/activity1',
-                             'uri':'http://partsregistry.org/cd/BBa_F2620/association1',
-                             'hadPlan':'http://www.example.com/genbankfile',
-                             'hadRole':'http://www.example.com/DNAsynthesis',
-                             'agent':'http://example.com/agents/user001'}
 
 def qualified_association_from_activity(activity):
+    """
+    Takes an activity dictionary and automatically produces association objects
+    :param activity: takes an activity dictionary
+    :return: 
+    """
     for i in range(len(activity['agents'])):
         add_qualified_association(activity['uri'],
                                   activity['uri']+'/association'+str(i+1),
@@ -95,19 +108,47 @@ def qualified_association_from_activity(activity):
                                   activity['agents'][i][2])
 
 
-# need to put in addActivity module
 def qualified_usages_from_activity(activity):
-        for i in range(len(activity['entities'])):
-            add_qualified_usage(activity['uri'],
+    """
+    Takes an activity dicitionary and automatically produces usage objects
+    :param activity: activity dictionary
+    :return: 
+    """
+    for i in range(len(activity['entities'])):
+         add_qualified_usage(activity['uri'],
                             activity['uri']+'/usage'+str(i+1),  # uri needs substituting for base uri
                             activity['entities'][i][0],
                             activity['entities'][i][1])
 
 
-add_activity(**activity_dct)
+def add_activity_full(activity_dct,output_file):
+    """
+    takes an activity dictionary and produces the activity object, associations and usages and saves to a file
+    :param activity_dct: activity dictionary in normal format
+    :param output_file: saves the output in specified file
+    :return: 
+    """
+    add_activity(**activity_dct)
+    qualified_association_from_activity(activity_dct)
+    qualified_usages_from_activity(activity_dct)
+    g.serialize(output_file,"xml")
 
-qualified_association_from_activity(activity_dct)
+dna_synthesis_activity = {'uri':"http://example.com/activities/dna-synthesis", #URI for Component Definition (required)
+                'rdftype':'Activity', #RDF type (required)
+                'persistentIdentity':None, #URI(s) to other versions (should use semantic versioning)
+                'displayId':'DNA synthesis', #String for the display ID (composed of only alphanumberic or underscore characters must not begin with a digit)
+                'version':None, #string to describe version number (compares two objects with the same persistentIdentity)
+                'wasDerivedFrom':None, #URI to SBOL or non-SBOL resource
+                'name':'DNA synthesis', # string displayed to human when vizualising an Identified object
+                'description':'DNA synthesis by DNA2.0',#more thorough text descrption of identified object}
 
-qualified_usages_from_activity(activity_dct)
+                'agents':[('http://example.com/agents/user001','http://example.com/roles/user','')   ,   # agent in format
+                          ('http://example.com/agents/organisations/DNA2.0','http://example.com/roles/dna-synthesiser','')  # (URI(req),hadRole(req),hadPlan)
+                          ]
+                ,
 
-g.serialize("TestOutput.xml","xml")
+                'entities':[("http://synbiohub.org/public/igem/BBa_M39017/1",'output'), # entity in format (URI,I/O)
+                            ('http://parts.igem.org/Part:BBa_M39017','input')]}
+
+
+add_activity_full(dna_synthesis_activity,"BBa_M39017(output).xml")
