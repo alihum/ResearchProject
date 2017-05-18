@@ -1,6 +1,5 @@
-from rdflib import URIRef, Namespace, Graph, Literal
-from rdflib.namespace import RDF, FOAF
-from statistics import mode
+from rdflib import URIRef, Namespace, Graph
+
 from inputfile import input_file
 
 g = Graph()
@@ -10,15 +9,6 @@ sbol_ns = Namespace("http://sbols.org/v2#")
 myapp = Namespace("http://myapp.com/")
 prov = Namespace("http://www.w3.org/ns/prov#")
 dcterms = Namespace("http://purl.org/dc/terms/")
-
-# for s,p,o in g.triples((None,prov.wasDerivedFrom,None)):
-#     print s, 'was derived from', o
-#
-# for s,p,o in g.triples((None,myapp.assemblytype,None)):
-#     print o
-#
-# for s,p,o in g.triples((None,myapp.assemblytype,None)):
-
 
 def comp2compdef(component):
     for s, p, o in g.triples((URIRef(component),sbol_ns.definition,None)):

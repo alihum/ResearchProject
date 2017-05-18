@@ -1,8 +1,8 @@
-from rdflib import URIRef, Namespace, Graph, Literal
+from rdflib import URIRef, Graph, Literal
 from rdflib.namespace import RDF
-from namespaces import *
 
 from inputfile import input_file
+from namespaces import *
 
 g = Graph()
 g.parse(input_file)

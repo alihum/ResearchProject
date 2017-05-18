@@ -1,4 +1,5 @@
-from rdflib import URIRef, Namespace, Graph
+from rdflib import URIRef, Graph
+
 from addIdentified import add_identified
 from inputfile import input_file
 from namespaces import *
