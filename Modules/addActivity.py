@@ -1,6 +1,9 @@
 from rdflib import URIRef, Namespace, Graph, Literal
 from rdflib.namespace import RDF
 from namespaces import *
+import logging
+
+logging.basicConfig()
 
 def parse_xml(input_file):
     """
@@ -43,7 +46,7 @@ def add_activity(uri,rdftype,persistentIdentity=None,displayId=None,version=None
     if persistentIdentity:
         triple(URIRef(uri), sbol_ns.persistentIdentity, URIRef(persistentIdentity))
     if displayId:
-        triple(URIRef(uri), sbol_ns.displayId, URIRef(displayId))
+        triple(URIRef(uri), sbol_ns.displayId, Literal(displayId))
     if version:
         triple(URIRef(uri), sbol_ns.version, Literal(version))
     if wasDerivedFrom:
@@ -162,7 +165,7 @@ dna_synthesis_activity = {'uri':"http://example.com/activities/dna-synthesis", #
 biobrick_activity = {'uri':"http://example.com/activities/bio-brick-assembly", #URI for Component Definition (required)
                 'rdftype':'Activity', #RDF type (required)
                 'persistentIdentity':None, #URI(s) to other versions (should use semantic versioning)
-                'displayId':'BioBirck Assembly', #String for the display ID (composed of only alphanumberic or underscore characters must not begin with a digit)
+                'displayId':'BioBrick Assembly', #String for the display ID (composed of only alphanumberic or underscore characters must not begin with a digit)
                 'version':None, #string to describe version number (compares two objects with the same persistentIdentity)
                 'wasDerivedFrom':None, #URI to SBOL or non-SBOL resource
                 'name':'BioBrick Assembly', # string displayed to human when vizualising an Identified object
