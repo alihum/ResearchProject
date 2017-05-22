@@ -1,7 +1,6 @@
 from rdflib import URIRef, Namespace, Graph
 from rdflib.namespace import RDF
 from namespaces import *
-# from inputfile import input_file
 
 def parse_xml(input_file):
     """

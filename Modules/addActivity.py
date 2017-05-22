@@ -186,4 +186,28 @@ biobrick_activity = {'uri':"http://example.com/activities/bio-brick-assembly", #
 
                      }
 
-add_activity_full("BBa_P0440.xml",biobrick_activity,"BBa_P0440(output).xml")
+# add_activity_full("BBa_P0440.xml",biobrick_activity,"BBa_P0440(output).xml")
+
+biobrick_activity = {'uri':"http://example.com/activities/bio-brick-assembly", #URI for Component Definition (required)
+                'rdftype':'Activity', #RDF type (required)
+                'persistentIdentity':None, #URI(s) to other versions (should use semantic versioning)
+                'displayId':'BioBrick Assembly', #String for the display ID (composed of only alphanumberic or underscore characters must not begin with a digit)
+                'version':None, #string to describe version number (compares two objects with the same persistentIdentity)
+                'wasDerivedFrom':None, #URI to SBOL or non-SBOL resource
+                'name':'BioBrick Assembly', # string displayed to human when vizualising an Identified object
+                'description':'Assmebly using BioBrick BBRFC10 Method',#more thorough text descrption of identified object}
+
+                'agents':[('http://example.com/agents/user001','http://example.com/roles/user','http://example.com/protocol/biobrick-protocol')   ,   # agent in format
+                            # (URI(req),hadRole(req),hadPlan)
+                          ]
+                ,
+
+                'entities':[("http://synbiohub.org/public/igem/BBa_P0440/1",'output'), # entity in format (URI,I/O)
+                            ('http://synbiohub.org/public/igem/BBa_C0040/1','input'),
+                            ('http://synbiohub.org/public/igem/BBa_B0012/1','input'),
+                            ('http://synbiohub.org/public/igem/BBa_B0010/1','input'),
+                            ('http://synbiohub.org/public/igem/BBa_B0034/1','input'),
+
+                            ]
+
+                     }
