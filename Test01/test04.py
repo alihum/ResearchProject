@@ -1,6 +1,6 @@
-from rdflib import URIRef, Namespace, Graph, Literal, tools
-from rdflib.namespace import RDF, FOAF
-from read import ComponentDefinitionFromComponent, DisplayIdFromComponentDefintion, ComponentToRange, ComponentFromComponentDefinition
+from rdflib import Namespace, Graph
+from rdflib.namespace import RDF
+from read_sbol import comp2compdef, compdef2displayid, comp2range, compdef2comp
 
 input_file = "BBa_P0440.xml"
 g = Graph()
@@ -30,12 +30,12 @@ parents = list(set(parent_list))
 child_list = []
 for i in parents:
     for s,p,o in g.triples((i,sbol_ns.component,None)):
-         child_list.append(ComponentDefinitionFromComponent(o))
+         child_list.append(comp2compdef(o))
 
 #Prints the displayId of the parent and child components
 print 'Parents:'
 for i in parents:
-    print DisplayIdFromComponentDefintion(i)
+    print compdef2displayid(i)
 print 'Children:'
 for i in child_list:
-    print DisplayIdFromComponentDefintion(i), ComponentToRange(ComponentFromComponentDefinition(i))
+    print compdef2displayid(i), comp2range(compdef2comp(i))

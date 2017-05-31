@@ -186,7 +186,7 @@ biobrick_activity = {'uri':"http://example.com/activities/bio-brick-assembly", #
 
                      }
 
-# add_activity_full("BBa_P0440.xml",biobrick_activity,"BBa_P0440(output).xml")
+add_activity_full("BBa_P0440.xml",biobrick_activity,"BBa_P0440(output).xml")
 
 biobrick_activity = {'uri':"http://example.com/activities/bio-brick-assembly", #URI for Component Definition (required)
                 'rdftype':'Activity', #RDF type (required)
@@ -211,3 +211,4 @@ biobrick_activity = {'uri':"http://example.com/activities/bio-brick-assembly", #
                             ]
 
                      }
+

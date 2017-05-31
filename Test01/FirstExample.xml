@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:prov="http://www.w3.org/ns/prov#"
+         xmlns:sbol="http://sbols.org/v2#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#dateTime/"
+         xmlns:synbiohub="http://synbiohub.org#"
+         xmlns:sbh="http://wiki.synbiohub.org/wiki/Terms/synbiohub#"
+         xmlns:sybio="http://www.sybio.ncl.ac.uk#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:ncbi="http://www.ncbi.nlm.nih.gov#"
+         xmlns:igem="http://wiki.synbiohub.org/wiki/Terms/igem#"
+         xmlns:genbank="http://www.ncbi.nlm.nih.gov/genbank#"
+         xmlns:gbconv="http://sbols.org/genBankConversion#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:obo="http://purl.obolibrary.org/obo/"
+         xmlns:pc="http:/example.com/physicalcontext/">
+
+   <pc:PhysicalContext rdf:about="http://example.com/physicalcontext/room1">
+       <pc:type rdf:resource="http://purl.obolibrary.org/obo/ENVO_00000073"/>
+       <pc:identity>RIDB2.1.63</pc:identity>
+       <pc:contains>
+           <pc:PhysicalContext rdf:resource="http://example.com/physicalcontext/room1/refrigeratorA">
+               <pc:type rdf:resource="http://purl.obolibrary.org/obo/ENVO_01000583"/>
+               <pc:identity>Fridge A</pc:identity>
+               <pc:contains>
+                   <pc:PhysicalContext rdf:about="http://example.com/plates/plate1">
+                       <pc:type rdf:resource="http://www.bioassayontology.org/bao#BAO_0000513"/>
+                       <pc:barcode>12332324</pc:barcode>
+                       <pc:contains>
+                           <pc:PhysicalContext rdf:about="http://example.com/cells/cellculture1">
+                               <pc:type rdf:resource="http://purl.obolibrary.org/obo/OBI_0001876">
+                               <pc:identity rdf:resource="http://purl.obolibrary.org/obo/NCBITaxon_224308"/>
+                               <pc:components>
+                                   <pc:physicalcomponent
+                                           rdf:resource="http://example.com/physicalcomponents/physicalcomponent2"/>
+                               </pc:components>
+                           </pc:PhysicalContext>
+                       </pc:contains>
+                   </pc:PhysicalContext>
+                   <pc:PhysicalContext rdf:about="http://example.com/physicalcontext/room1/refrigeratorA/eppendorf1">
+                       <pc:type rdf:resource="http://purl.obolibrary.org/obo/OBI_0000836"/>
+                       <pc:barcode>12342342342</pc:barcode>
+                       <pc:components>
+
+                       </pc:components>
+                   </pc:PhysicalContext>
+          </pc:contains>
+           </pc:PhysicalContext>
+       </pc:contains>
+   </pc:PhysicalContext>
+
+   <pc:PhysicalComponent rdf:about="http://example.com/physicalcomponents/physicalcomponent1">
+       <pc:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+       <pc:definition rdf:resource="http://partsregistry.org/cd/BBa_F2620"/>
+       <pc:context rdf:resource="http://example.com/tubes/eppendorf1"/>
+       <pc:experimentaldata>
+           <pc:ExperimentalData rdf:about="http://example.com/experimentaldata/experimentaldata1">
+               <pc:type rdf:resource="http://purl.obolibrary.org/obo/CHMO_0001021"/>
+               <pc:attachment rdf:resource="http://example.com/gelelectrophoresis.jpg"/>
+           </pc:ExperimentalData>
+       </pc:experimentaldata>
+   </pc:PhysicalComponent>
+
+   <pc:PhysicalComponent rdf:about="http://example.com/physicalcomponents/physicalcomponent2">
+       <pc:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+       <pc:definition rdf:resource="http://synbiohub.org/public/igem/BBa_P0440/1"/>
+       <pc:context rdf:resource="http://example.com/cells/cellculture1"/>
+       <pc:experimentaldata>
+           <pc:ExperimentalData rdf:about="http://example.com/experimentaldata/experimentaldata2">
+               <pc:type rdf:resource="http://purl.obolibrary.org/obo/CHMO_0000087"/>
+               <pc:attachment rdf:resource="http://example.com/fluorescence-results.xls"/>
+           </pc:ExperimentalData>
+       </pc:experimentaldata>
+       <prov:wasDerivedFrom rdf:resource="http://example.com/physicalcomponents/physicalcomponent1"/>
+       <prov:wasGeneratedBy rdf:resource="http://example.com/activites/transformation-activity"/>
+   </pc:PhysicalComponent>
+
+   <prov:Activity rdf:about="http://example.com/activites/transformation-activity">
+       <prov:used rdf:resource="http://example.com/physicalcomponents/physicalcomponent1"/>
+       <prov:qualifiedUsage>
+           <prov:usage rdf:about="http://example.com/activites/transformation-activity/usage1">
+               <prov:entity rdf:resource="http://example.com/physicalcomponents/physicalcomponent1"/>
+               <prov:hadRole rdf:resource="http://example.com/roles/input"/>
+           </prov:usage>
+       </prov:qualifiedUsage>
+
+       <prov:Agent rdf:about="http://example.com/agents/agent001">

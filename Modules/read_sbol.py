@@ -106,7 +106,7 @@ class SBOL:
                  child_list.append(comp2compdef(o))
         return child_list
 
-x = SBOL("BBa_P0440.xml")
+x = SBOL("/Users/ali/PycharmProjects/ResearchProject/Test01/TestInput.xml")
 
 print 'Parents:'
 for i in x.ParentList():
@@ -117,12 +117,14 @@ for i in x.ChildList():
     print i
 
 # Sorts the parts into order and shows their start and end locations
-# cdandrange = []
-# for i in x.ChildList():
-#     cdandrange.append((i,comp2start(compdef2comp(i)),comp2end(compdef2comp(i))))
-#
-#
-# cdandrange.sort(key=lambda tup:tup[1])
-#
-# for i in cdandrange:
-#     print i[0], i[1], i[2]
+
+cdandrange = []
+for i in x.ChildList():
+    cdandrange.append((i,comp2start(compdef2comp(i)),comp2end(compdef2comp(i))))
+
+
+cdandrange.sort(key=lambda tup:tup[1])
+
+for i in cdandrange:
+    print i[0], i[1], i[2]
+
