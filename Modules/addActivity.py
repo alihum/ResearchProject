@@ -1,3 +1,5 @@
+#hello
+
 from rdflib import URIRef, Namespace, Graph, Literal
 from rdflib.namespace import RDF
 from namespaces import *
