@@ -26,11 +26,11 @@ def triple(s,p,o):
     '''
     g.add((s,p,o))
 
-def addPhysicalContext(uri,type,identity=None,barcode=None,contains=None,components=None,strainId=None):
+def addPhysicalContext(uri,type,name=None,barcode=None,contains=None,components=None,strainId=None):
     triple(URIRef(uri),RDF.type,URIRef("http://example.com/PhysicalContext"))
     triple(URIRef(uri),pc.type,URIRef(type))
-    if identity:
-        triple(URIRef(uri),pc.identity,Literal(identity))
+    if name:
+        triple(dcterms.title,pc.identity,Literal(name)
     if barcode:
         triple(URIRef(uri),pc.barcode,Literal(barcode))
     if contains:
