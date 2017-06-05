@@ -1,3 +1,4 @@
+
 from rdflib import URIRef, Namespace, Graph
 from rdflib.namespace import RDF
 from namespaces import *
@@ -19,8 +20,10 @@ def comp2compdef(component):
 # print ComponentDefinitionFromComponent("http://partsregistry.org/cd/BBa_F2620/luxR",input_file)
 
 def compdef2comp(component_def):
+    list = []
     for s, p, o in g.triples((None, sbol_ns.definition, URIRef(component_def))):
-        return s
+        list.append(s)
+    return list
 
 # print ComponentFromComponentDefinition("http://partsregistry.org/cd/BBa_B0034",input_file)
 
@@ -40,7 +43,7 @@ def compdef2displayid(componentdefinition):
 
 def comp2range(component):
     for s,p,o in g.triples((None,sbol_ns.component,component)):
-        sa = s
+        sa = list #sa is the sequence annotation
         for s,p,o in g.triples((sa,sbol_ns.location,None)):
              x = o
              for s,p,o in g.triples((x,sbol_ns.start,None)):
@@ -50,7 +53,7 @@ def comp2range(component):
     return start, end
 
 def comp2start(component):
-    for s,p,o in g.triples((None,sbol_ns.component,component)):
+    for s, p, o in g.triples((None, sbol_ns.component, component)):
         sa = s
         for s,p,o in g.triples((sa,sbol_ns.location,None)):
              x = o
@@ -103,28 +106,20 @@ class SBOL:
         child_list = []
         for i in self.ParentList():
             for s,p,o in self.g.triples((i,sbol_ns.component,None)):
-                 child_list.append(comp2compdef(o))
+                 child_list.append(o)
         return child_list
 
-x = SBOL("/Users/ali/PycharmProjects/ResearchProject/Test01/TestInput.xml")
+    def SortedChildList(self):
+        cdandrange = []
+        for i in self.ChildList():
+            cdandrange.append((comp2compdef(i), int(comp2start(i)),int(comp2end((i)))))
+        cdandrange.sort(key=lambda tup: tup[1])
+        sorted_list = []
+        for i, j, k in cdandrange:
+            sorted_list.append((i))
+        return sorted_list
 
-print 'Parents:'
-for i in x.ParentList():
+x = SBOL("ComponentDefinitionOutput.xml")
+
+for i in x.SortedChildList():
     print i
-
-print 'Children:'
-for i in x.ChildList():
-    print i
-
-# Sorts the parts into order and shows their start and end locations
-
-cdandrange = []
-for i in x.ChildList():
-    cdandrange.append((i,comp2start(compdef2comp(i)),comp2end(compdef2comp(i))))
-
-
-cdandrange.sort(key=lambda tup:tup[1])
-
-for i in cdandrange:
-    print i[0], i[1], i[2]
-
