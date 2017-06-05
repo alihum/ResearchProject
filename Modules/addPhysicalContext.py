@@ -15,6 +15,8 @@ def parse_xml(input_file):
     g = Graph()
     g.parse(input_file)
     g.bind("pc","http://example.com/physical/#")
+    g.bind("obo","http://purl.obolibrary.org/obo/")
+
 # Function shortens adding triples by abbreviating g.add
 def triple(s,p,o):
     '''
@@ -30,9 +32,9 @@ def addPhysicalContext(uri,type,name=None,barcode=None,contains=None,components=
     triple(URIRef(uri),RDF.type,URIRef("http://example.com/PhysicalContext"))
     triple(URIRef(uri),pc.type,URIRef(type))
     if name:
-        triple(dcterms.title,pc.identity,Literal(name)
+        triple(URIRef(uri),dcterms.title,Literal(name))
     if barcode:
-        triple(URIRef(uri),pc.barcode,Literal(barcode))
+        triple(URIRef(uri),obo.FLU_0001019,Literal(barcode))
     if contains:
         for i in contains:
             triple(URIRef(uri),pc.contains,URIRef(i["uri"]))
@@ -41,7 +43,7 @@ def addPhysicalContext(uri,type,name=None,barcode=None,contains=None,components=
         for i in components:
             triple(URIRef(uri),pc.components,URIRef(i))
     if strainId:
-        triple(URIRef(uri),pc.strainId,URIRef(strainId))
+        triple(URIRef(uri),obo.OGG_0000000007,URIRef(strainId))
 
 
 cellculture = {
@@ -53,12 +55,14 @@ cellculture = {
 
 eppendorf = {
     "uri":"http://example.com/physicalcontext/room1/refrigeratorA/eppendorf1",
+    "name":"16/07/17: Sample A"
     "type":"http://purl.obolibrary.org/obo/OBI_0000836",
     "components":["http://example.com/physicalcomponents/physicalcomponent3"]
 }
 
 plate = {
     "uri":"http://example.com/room1/refrigeratorA/plate1",
+    "name":"Plate A",
     "type":"http://www.bioasssayontology.org/bao#BAO_0000513",
     "barcode":"12332324",
     "contains":[cellculture]
@@ -67,7 +71,7 @@ plate = {
 fridge={
     "uri":"http://example.com/physicalcontext/room1/refrigeratorA",
     "type":"http://purl.obolibrary.org/obo/ENVO_01000583",
-    "identity":"Fridge A",
+    "name":"Fridge A",
     "contains":[plate,eppendorf]
 
 }
@@ -75,7 +79,7 @@ fridge={
 room = {
     "uri" : "http://example.com/phyiscalcontext/room1",
     "type" : "http://purl.obolibrary.org/obo/ENVO_00000073",
-    "identity":"RIDFB2.1.63",
+    "name":"RIDFB2.1.63",
     "contains":[fridge]
 }
 
