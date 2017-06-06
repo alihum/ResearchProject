@@ -30,11 +30,16 @@ def compdef2comp(component_def):
 def comp2partseq(component):
     for s, p, o in g.triples((URIRef(component),sbol_ns.definition,None)):
         cd = o
-    for s, p, o in g.triples((URIRef(cd),sbol_ns.sequence,None)):
-        seq = o
-    for s, p, o in g.triples((URIRef(seq),sbol_ns.elements,None)):
-        return(o)
+        for s, p, o in g.triples((URIRef(cd),sbol_ns.sequence,None)):
+            seq = o
+            for s, p, o in g.triples((URIRef(seq),sbol_ns.elements,None)):
+                return(o)
 
+def compdef2partseq(compdef):
+    for s, p, o in g.triples((URIRef(compdef),sbol_ns.sequence,None)):
+        sequence = o
+        for s, p, o in g.triples((URIRef(sequence),sbol_ns.elements,None)):
+            return o
 # print PartSequenceFromComponent("http://partsregistry.org/cd/BBa_F2620/rbs",input_file)
 
 def compdef2displayid(componentdefinition):
@@ -102,16 +107,15 @@ class SBOL:
                     parent_list.append(s)
         return list(set(parent_list))
 
-    def ChildList(self):
+    def ChildList(self,componentdefinition):
         child_list = []
-        for i in self.ParentList():
-            for s,p,o in self.g.triples((i,sbol_ns.component,None)):
-                 child_list.append(o)
+        for s,p,o in g.triples((URIRef(componentdefinition),sbol_ns.component,None)):
+             child_list.append(o)
         return child_list
 
-    def SortedChildList(self):
+    def SortedChildList(self,componentdefinition):
         cdandrange = []
-        for i in self.ChildList():
+        for i in self.ChildList(componentdefinition):
             cdandrange.append((comp2compdef(i), int(comp2start(i)),int(comp2end((i)))))
         cdandrange.sort(key=lambda tup: tup[1])
         sorted_list = []
@@ -119,7 +123,9 @@ class SBOL:
             sorted_list.append((i))
         return sorted_list
 
-x = SBOL("ComponentDefinitionOutput.xml")
-
-for i in x.SortedChildList():
-    print i
+# x = SBOL("BBa_P0440.xml")
+#
+# print x.SortedChildList("http://synbiohub.org/public/igem/BBa_P0440/1")
+#
+# # for i in x.SortedChildList("http://partsregistry.org/cd/BBa_F2620"):
+# #     print i
