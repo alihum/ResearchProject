@@ -60,12 +60,10 @@ if assembly_method == "BioBrick":
         count = 1
         output = parts[middle-1]
         for i in range(steps-1):
-            # print "Step " + str(count) + ":"
             output = parts[middle-1-count], output, parts[middle-1+count]
             output = "[{}] + [{}] + [{}]".format(*output)
             steps_list.append(output)
             count = count + 1
-        # print "Step " + str(count) + ":"
         steps_list.append("[{}] + [{}]".format(output, parts[count+1]))
     else:
         steps = (len(parts)-1)/2
