@@ -27,7 +27,7 @@ def triple(s,p,o):
     '''
     g.add((s,p,o))
 
-input_file = "BBa_K887000.xml"
+input_file = "ComponentDefinitionOutput.xml"
 parse_xml(input_file)
 
 
