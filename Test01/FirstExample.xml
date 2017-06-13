@@ -67,7 +67,7 @@
                                </pc:PhysicalComponent>
                        </pc:components>
                    </pc:PhysicalContext>
-          </pc:contains>
+               </pc:contains>
            </pc:PhysicalContext>
        </pc:contains>
    </pc:PhysicalContext>
@@ -93,3 +93,34 @@
 
    <prov:Agent rdf:about="http://example.com/agents/user001">
        <dcterms:title>User 001</dcterms:title>
+
+   <prov:Activity rdf:about="http://example.com/activity/biobrickassembly">
+       <sbol:displayId>BioBrick Assembly</sbol:displayId>
+       <prov:used rdf:resource="http://example.com/physicalcomponents/physicalcomponent1"/>
+       <prov:used rdf:resource="http://example.com/physicalcomponents/physicalcomponent2"/>
+       <prov:used rdf:resource="http://example.com/physicalcomponents/physicalcomponent3"/>
+       <prov:used rdf:resource="http://example.com/physicalcomponents/physicalcomponent4"/>
+       <prov:used rdf:resource="http://example.com/physicalcomponents/physicalcomponent5"/>
+       <prov:wasAssociatedWith rdf:resource="http://example.com/agents/user001"/>
+       <prov:qualifiedAssociation>
+           <prov:Association rdf:about="http://example.com/activities/transformation-activity/association1">
+               <prov:agent rdf:resource="http://example.com/agents/user001"/>
+               <prov:hadPlan rdf:resource="https://www.researchgate.net/file.PostFileLoader.html?id=578dbf5f96b7e49aa8701e71&assetKey=AS%3A385453766266885%401468910748000"/>
+           </prov:Association>
+       </prov:qualifiedAssociation>
+  </prov:Activity>
+
+ <prov:Agent rdf:about="http://example.com/agents/user001">
+       <dcterms:title>User 001</dcterms:title>
+
+     <sbol:AssemblyPlan rdf:about="http://example.com/assemblyplans/assemblyplan1">
+         <sbol:type rdf:resource="http://sbols.org/v2#BioBrickAssembly"/>
+         <sbol:Step rdf:about="http://example.com/assemblyplans/assemblyplan1/step1">
+             <sbol:stepnumber>1</sbol:stepnumber>
+             <sbol:input rdf:resource="http://example.com/physicalcomponents/physicalcomponent1"/>
+             <sbol:input rdf:resource="http://example.com/physicalcomponents/physicalcomponent2"/>
+             <sbol:input rdf:resource="http://example.com/physicalcomponents/physicalcomponent3"/>
+             <sbol:input rdf:resource="http://example.com/physicalcomponents/physicalcomponent4"/>
+             <sbol:input rdf:resource="http://example.com/physicalcomponents/physicalcomponent5"/>
+         </sbol:Step>
+     </sbol:AssemblyPlan>
