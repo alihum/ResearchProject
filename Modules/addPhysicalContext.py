@@ -88,4 +88,4 @@ def fullPhysicalContext(input_file,physical_context_dct,output_file):
     addPhysicalContext(**physical_context_dct)
     g.serialize(output_file,"xml")
 
-fullPhysicalContext("ComponentDefinitionOutput.rdf",room,"Output.xml")
+fullPhysicalContext("ComponentDefinitionOutput.xml",room,"Output.xml")
