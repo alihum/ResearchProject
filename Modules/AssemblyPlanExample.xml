@@ -1,0 +1,36 @@
+<sbol:AssemblyPlan rdf:about="root of sbol object/assemblyplan1">
+    <sbol:type rdf:resource "http://parts.igem.org/Assembly:Standard_assembly"/>
+    <sbol:step>
+        <sbol:Step rdf:about="root of sbol object/assemblyplan1/step1">
+            <sbol:stepnumber>1</sbol:stepnumber>
+            <sbol:input rdf:resource="http://partsregistry.org/cd/BBa_R0040"/>
+            <sbol:input rdf:resource="http://partsregistry.org/cd/BBa_C0062"/>
+            <sbol:output rdf:resource="http://example.com/step1output"/>
+            <sbol:reagent rdf:resource="http://example.com/reagents/EcoRI"/>
+        </sbol:Step>
+    </sbol:step>
+    <sbol:step>
+        <sbol:Step rdf:about="root of sbol object/assemblyplan1/step2">
+            <sbol:stepnumber>2</sbol:stepnumber>
+            <sbol:input rdf:resource="http://example.com/step1output"/>
+            <sbol:input rdf:resource="http://partsregistry.org/cd/BBa_B0034"/>
+            <sbol:output rdf:resource="http://example.com/step2output"/>
+        </sbol:Step>
+    </sbol:step>
+    <sbol:step>
+        <sbol:Step rdf:about="root of sbol object/assemblyplan1/step3">>
+            <sbol:stepnumber>3</sbol:stepnumber>
+            <sbol:input rdf:resource="http://example.com/step2output"/>
+            <sbol:input rdf:resource="http://partsregistry.org/cd/BBa_B0015"/>
+            <sbol:output rdf:resource="http://example.com/step3output"/>
+        </sbol:Step>
+    </sbol:step>
+    <sbol:step>
+        <sbol:Step rdf:about="root of sbol object/assemblyplan1/step4">>
+            <sbol:stepnumber>4</sbol:stepnumber>
+            <sbol:input rdf:resource="http://example.com/step3output"/>
+            <sbol:input rdf:resource="http://partsregistry.org/cd/BBa_B0062"/>
+            <sbol:output rdf:resource="http://partsregistry.org/cd/BBa_F2620"/>
+        </sbol:Step>
+    </sbol:step>
+</sbol:AssemblyPlan>
