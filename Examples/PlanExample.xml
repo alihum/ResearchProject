@@ -1,0 +1,191 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:prov="http://www.w3.org/ns/prov#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:pr="http://partsregistry.org" xmlns:sbol="http://sbols.org/v2#"
+         xmlns:dcterms="http://purl.org/dc/terms/">
+    <prov:Activity rdf:about="http://example.com/activities/biobrick-assembly">
+        <dcterms:title>BioBrick Standard Assembly</dcterms:title>
+        <prov:qualifiedAssociation>
+            <prov:Association rdf:about="root of ComponentDefinition/biobrickassembly/association">
+                <prov:agent rdf:resource="example agent"/>
+                <prov:hadPlan>
+                    <prov:Plan rdf:about="root of ComponentDefinition/biobrickassembly/association/plan">
+                        <sbol:type rdf:resource="http://parts.igem.org/Assembly:Standard_assembly"/>
+                        <sbol:step>
+                            <sbol:Step rdf:about="root of sbol object/assemblyplan/stage1/step1">
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step1/input1">
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                        <sbol:type rdf:resource="http://identifiers.org/so/SO:0000988"/>
+                                        <sbol:refersTo rdf:resource="http://partsregistry.org/cd/BBa_R0040"/>
+                                        <sbol:alternateSequence
+                                                rdf:resource="http://example.com/alternateseq/BBa_R0040"/>
+                                        <sbol:volume>500ng</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step1/input2">
+                                        <sbol:type rdf:resource="http://purl.obolibrary.org/obo/OBI_0000732"/>
+                                        <sbol:refersTo rdf:resource="https://www.neb.com/products/r3101-ecori-hf"/>
+                                        <sbol:volume>1µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step1/input3">
+                                        <sbol:type rdf:resource="http://purl.obolibrary.org/obo/OBI_0000732"/>
+                                        <sbol:refersTo rdf:resource="https://www.neb.com/products/r0133-spei"/>
+                                        <sbol:volume>1µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step1/input4">
+                                        <sbol:type rdf:resource="http://semanticscience.org/resource/SIO_010416"/>
+                                        <sbol:refersTo rdf:resource="https://www.neb.com/products/b7202-nebuffer-2-1"/>
+                                        <sbol:volume>5µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step1/input5">
+                                        <sbol:type rdf:resource="http://purl.obolibrary.org/obo/ENVO_00003065"/>
+                                        <sbol:volume>50µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:output>
+                                    <sbol:Output rdf:about="root of sbol object/assemblyplan/stage1/step1/output1">
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                        <sbol:alternateSequence
+                                                rdf:resource="http://example.com/alternateseq/step1output"/>
+                                    </sbol:Output>
+                                </sbol:output>
+                                <sbol:conditions>
+                                    <sbol:Conditions
+                                            rdf:about="root of sbol object/assemblyplan/stage1/step1/conditions">
+                                        <sbol:temperature>37</sbol:temperature>
+                                        <sbol:duration>10min</sbol:duration>
+                                    </sbol:Conditions>
+                                </sbol:conditions>
+                            </sbol:Step>
+                        </sbol:step>
+                        <sbol:step>
+                            <sbol:Step rdf:about="root of sbol object/assemblyplan/stage1/step2">
+                            <sbol:Step rdf:about="root of sbol object/assemblyplan/stage1/step2">
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step2/input1">
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                        <sbol:type rdf:resource="http://identifiers.org/so/SO:0000988"/>
+                                        <sbol:definition rdf:resource="http://partsregistry.org/cd/BBa_C0062"/>
+                                        <sbol:volume>500ng</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step2/input2">
+                                        <sbol:type rdf:resource="https://www.neb.com/products/r0145-xbai"/>
+                                        <sbol:volume>1µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step2/input3">
+                                        <sbol:type rdf:resource="https://www.neb.com/products/r0140-psti"/>
+                                        <sbol:volume>1µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step2/input4">
+                                        <sbol:type rdf:resource="https://www.neb.com/products/b7202-nebuffer-2-1"/>
+                                        <sbol:volume>5µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage1/step2/input5">
+                                        <sbol:type rdf:resource="http://purl.obolibrary.org/obo/ENVO_00003065"/>
+                                        <sbol:volume>50µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                            </sbol:Step>
+                        </sbol:step>
+                        <sbol:step>
+                            <sbol:Step rdf:about="root of sbol object/assemblyplan/stage2/step1/">
+                                <dcterms:title>Ligation</dcterms:title>
+                                <sbol:dependsOn rdf:resource="root of sbol object/assemblyplan/stage1/step1"/>
+                                <sbol:dependsOn rdf:resource="root of sbol object/assemblyplan/stage1/step2"/>
+                                <sbol:dependsOn rdf:resource="root of sbol object/assemblyplan/stage1/step3"/>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage2/step1/input1">
+                                        <dcterms:title>Upstream Digest</dcterms:title>
+                                        <sbol:stepOutput
+                                                rdf:resource="root of sbol object/assemblyplan/stage1/step1/output1"/>
+                                        <sbol:volume>2µl</sbol:volume>
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage2/step1/input2">
+                                        <dcterms:title>Downstream Digest</dcterms:title>
+                                        <sbol:stepOutput
+                                                rdf:resource="root of sbol object/assemblyplan/stage1/step2/output1"/>
+                                        <sbol:volume>2µl</sbol:volume>
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage2/step1/input3">
+                                        <dcterms:title>Vector Digest</dcterms:title>
+                                        <sbol:stepOutput
+                                                rdf:resource="root of sbol object/assemblyplan/stage1/step3/output1"/>
+                                        <sbol:volume>2µl</sbol:volume>
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage2/step1/input4">
+                                        <dcterms:title>T4 DNA Ligase Buffer</dcterms:title>
+                                        <sbol:type
+                                                rdf:resource="https://www.neb.com/products/b0202-t4-dna-ligase-reaction-buffer"/>
+                                        <sbol:volume>2µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage2/step1/input5">
+                                        <dcterms:title>T4 DNA Ligase</dcterms:title>
+                                        <sbol:type rdf:resource="https://www.neb.com/products/m0202-t4-dna-ligase"/>
+                                        <sbol:volume>2µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:input>
+                                    <sbol:Input rdf:about="root of sbol object/assemblyplan/stage2/step1/input6">
+                                        <dcterms:title>H2O</dcterms:title>
+                                        <sbol:type rdf:resource="http://purl.obolibrary.org/obo/ENVO_00003065"/>
+                                        <sbol:volume>2µl</sbol:volume>
+                                    </sbol:Input>
+                                </sbol:input>
+                                <sbol:output>
+                                    <sbol:Output rdf:about="root of sbol object/assemblyplan/stage2/step1/output1">
+                                        <sbol:type
+                                                rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+                                        <sbol:alternateSequence
+                                                rdf:resource="http://example.com/alternateseq/stage2step1output"/>
+                                    </sbol:Output>
+                                </sbol:output>
+                            </sbol:Step>
+                        </sbol:step>
+                    </prov:Plan>
+                </prov:hadPlan>
+            </prov:Association>
+        </prov:qualifiedAssociation>
+    </prov:Activity>
+    <sbol:Sequence rdf:about="http://example.com/alternateseq/BBa_R0040">
+        <dcterms:title>TetR alternate sequence</dcterms:title>
+        <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+        <sbol:elements>BBa_R0040 sequence + vector sequence</sbol:elements>
+    </sbol:Sequence>
+    <sbol:Sequence rdf:about="http://example.com/alternateseq/step1output">
+        <dcterms:title>Step 1 output sequence</dcterms:title>
+        <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+        <sbol:elements>BBa_R0040 sequence with sticky ends</sbol:elements>
+    </sbol:Sequence>
+</rdf:RDF>
